@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_2/widgets/drawer_list_tile.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key, required this.onSelectScreen});
@@ -42,36 +43,16 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
           ),
-          ListTile(
-            leading: Icon(
-              Icons.restaurant,
-              size: 26,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            title: Text(
-              'Meals',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 24,
-                  ),
-            ),
+          DrawerListTile(
+            icon: Icons.restaurant,
+            title: 'Meals',
             onTap: () {
               onSelectScreen('meals');
             },
           ),
-          ListTile(
-            leading: Icon(
-              Icons.settings,
-              size: 26,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            title: Text(
-              'Filters',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 24,
-                  ),
-            ),
+          DrawerListTile(
+            icon: Icons.settings,
+            title: 'Filters',
             onTap: () {
               onSelectScreen('filters');
             },
