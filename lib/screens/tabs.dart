@@ -61,11 +61,20 @@ class _TabsScreenState extends State<TabsScreen> {
       activePageTitle = 'Your Favorites';
     }
 
+    void _setScreen(String identifier) {
+      if (identifier == 'filters') {
+      } else {
+        Navigator.of(context).pop();
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
-      drawer: MainDrawer(),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
+      ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
