@@ -9,7 +9,6 @@ class MealsScreen extends StatelessWidget {
     super.key,
     this.title,
     required this.meals,
-    required this.onToggleFavorite,
   });
 
   /// The title of the screen.
@@ -18,16 +17,12 @@ class MealsScreen extends StatelessWidget {
   /// The list of meals to display.
   final List<Meal> meals;
 
-  /// A callback function that is called when a meal's favorite status is toggled.
-  final void Function(Meal meal) onToggleFavorite;
-
   /// Navigates to the meal details screen when a meal is selected.
   void _selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (ctx) => MealDetailsScreen(
           meal: meal,
-          onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
