@@ -1,36 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:meals_2/widgets/filter_switch_tile.dart';
 
-class FilterScreen extends StatefulWidget {
-  const FilterScreen({super.key});
-
-  @override
-  State<FilterScreen> createState() => _FilterScreenState();
+/// Enum representing different filters for meals.
+enum Filter {
+  glutenFree,
+  lactoseFree,
+  vegetarian,
+  vegan,
 }
 
-class _FilterScreenState extends State<FilterScreen> {
+/// A screen for managing filters for meals.
+class FiltersScreen extends StatefulWidget {
+  /// Constructs a [FiltersScreen] with the given [currentFilters].
+  const FiltersScreen({super.key, required this.currentFilters});
+
+  /// The current filters for meals.
+  final Map<Filter, bool> currentFilters;
+
+  @override
+  State<FiltersScreen> createState() => _FiltersScreenState();
+}
+
+/// The state of the [FiltersScreen].
+class _FiltersScreenState extends State<FiltersScreen> {
   bool _glutenFreeFilterSet = false;
   bool _lactoseFreeFilterSet = false;
   bool _vegetarianFilterSet = false;
   bool _veganFilterSet = false;
+
+  /// Initializes the state of the Filters screen.
+  ///
+  /// This method is called when the widget is inserted into the tree and
+  /// creates the initial state of the widget. It sets the values of the
+  /// filter variables based on the current filters passed to the widget.
+  @override
+  void initState() {
+    super.initState();
+    _glutenFreeFilterSet = widget.currentFilters[Filter.glutenFree] ?? false;
+    _lactoseFreeFilterSet = widget.currentFilters[Filter.lactoseFree] ?? false;
+    _vegetarianFilterSet = widget.currentFilters[Filter.vegetarian] ?? false;
+    _veganFilterSet = widget.currentFilters[Filter.vegan] ?? false;
+  }
+
+  /// Handles the action when the back button is pressed and returns the selected filters.
+  Future<bool> onPopInvokedWithResult() async {
+    Navigator.of(context).pop({
+      Filter.glutenFree: _glutenFreeFilterSet,
+      Filter.lactoseFree: _lactoseFreeFilterSet,
+      Filter.vegetarian: _vegetarianFilterSet,
+      Filter.vegan: _veganFilterSet,
+    });
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Filters'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => onPopInvokedWithResult(),
+        ),
       ),
-      // alternative navigation behavior
-      // drawer: MainDrawer(onSelectScreen: (identifier) {
-      //   Navigator.of(context).pop();
-      //   if (identifier == 'meals') {
-      //     Navigator.of(context).pushReplacement(
-      //       MaterialPageRoute(
-      //         builder: (ctx) => const FilterScreen(),
-      //       ),
-      //     );
-      //   }
-      // }),
       body: Column(
         children: [
           FilterSwitchTile(

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:meals_2/models/meal.dart';
 
+/// A screen that displays the details of a meal.
 class MealDetailsScreen extends StatelessWidget {
-  const MealDetailsScreen(
-      {super.key, required this.meal, required this.onToggleFavorite});
+  const MealDetailsScreen({
+    super.key,
+    required this.meal,
+    required this.onToggleFavorite,
+  });
 
+  /// The meal to display the details of.
   final Meal meal;
+
+  /// A callback function that is called when the favorite status of the meal is toggled.
   final void Function(Meal meal) onToggleFavorite;
 
   @override
@@ -33,7 +40,7 @@ class MealDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 14),
             Text(
-              'Ingedrients',
+              'Ingredients',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
