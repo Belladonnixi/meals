@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals_2/models/meal.dart';
 import 'package:meals_2/providers/favorites_provider.dart';
 import 'package:meals_2/providers/meals_provider.dart';
 import 'package:meals_2/screens/categories.dart';
