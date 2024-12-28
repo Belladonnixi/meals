@@ -5,6 +5,7 @@ import 'package:meals_2/providers/navigation_notifier.dart';
 import 'package:meals_2/providers/favorites_provider.dart';
 import 'package:meals_2/screens/categories.dart';
 import 'package:meals_2/screens/meals.dart';
+import 'package:meals_2/widgets/bottom_nav_bar.dart';
 import 'package:meals_2/widgets/main_drawer.dart';
 
 class TabsScreen extends ConsumerWidget {
@@ -42,19 +43,9 @@ class TabsScreen extends ConsumerWidget {
             navigationNotifier.setScreen(context, identifier),
       ),
       body: activePage,
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) => navigationNotifier.selectPage(index),
+      bottomNavigationBar: BottomNavBar(
         currentIndex: selectedPageIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.set_meal),
-            label: 'Categories',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-          ),
-        ],
+        onTap: (index) => navigationNotifier.selectPage(index),
       ),
     );
   }
