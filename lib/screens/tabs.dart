@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meals_2/providers/favorites_provider.dart';
 import 'package:meals_2/providers/filters_provider.dart';
 import 'package:meals_2/providers/navigation_notifier.dart';
+import 'package:meals_2/providers/favorites_provider.dart';
 import 'package:meals_2/screens/categories.dart';
 import 'package:meals_2/screens/meals.dart';
 import 'package:meals_2/widgets/main_drawer.dart';
@@ -12,16 +12,19 @@ class TabsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final availableMeals = ref.watch(filteredMealProvider);
     final selectedPageIndex = ref.watch(selectedPageIndexProvider);
     final navigationNotifier = ref.read(navigationProvider);
 
-    Widget activePage = CategorieScreen(
-      availableMeals: availableMeals,
-    );
+    Widget activePage;
     var activePageTitle = 'Categories';
 
-    if (selectedPageIndex == 1) {
+    if (selectedPageIndex == 0) {
+      final availableMeals = ref.watch(filteredMealProvider);
+
+      activePage = CategorieScreen(
+        availableMeals: availableMeals,
+      );
+    } else {
       final favoriteMeals = ref.watch(favoriteMealsProvider);
 
       activePage = MealsScreen(
@@ -48,7 +51,7 @@ class TabsScreen extends ConsumerWidget {
             label: 'Categories',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.favorite),
             label: 'Favorites',
           ),
         ],

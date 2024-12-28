@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_2/models/meal.dart';
 import 'package:meals_2/providers/meals_provider.dart';
 
 /// Represents the available filters for meals.
@@ -39,23 +40,36 @@ final filtersProvider =
   (ref) => FiltersNotifier(),
 );
 
-final filteredMealProvider = Provider((ref) {
-  final meals = ref.watch(mealsProvider);
+final filteredMealProvider = Provider<List<Meal>>((ref) {
+  final mealsAsyncValue = ref.watch(mealsProvider);
   final activeFilters = ref.watch(filtersProvider);
 
-  return meals.where((meal) {
-    if (activeFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
-      return false;
-    }
-    if (activeFilters[Filter.lactoseFree]! && !meal.isLactoseFree) {
-      return false;
-    }
-    if (activeFilters[Filter.vegetarian]! && !meal.isVegetarian) {
-      return false;
-    }
-    if (activeFilters[Filter.vegan]! && !meal.isVegan) {
-      return false;
-    }
-    return true;
-  }).toList();
+  /// Filters the list of meals based on the active filters.
+  ///
+  /// Takes a list of meals and filters it based on the active filters.
+  /// The active filters are stored in the `activeFilters` map, where the key is
+  /// the filter type and the value is a boolean indicating whether the filter is active.
+  /// Returns a new list of meals that pass the active filters.
+
+  return mealsAsyncValue.when(
+    data: (meals) {
+      return meals.where((meal) {
+        if (activeFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
+          return false;
+        }
+        if (activeFilters[Filter.lactoseFree]! && !meal.isLactoseFree) {
+          return false;
+        }
+        if (activeFilters[Filter.vegetarian]! && !meal.isVegetarian) {
+          return false;
+        }
+        if (activeFilters[Filter.vegan]! && !meal.isVegan) {
+          return false;
+        }
+        return true;
+      }).toList();
+    },
+    loading: () => [],
+    error: (err, stack) => [],
+  );
 });

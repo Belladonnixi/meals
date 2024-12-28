@@ -1,51 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:meals_2/data/dummy_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_2/models/category.dart';
 import 'package:meals_2/models/meal.dart';
-import 'package:meals_2/screens/meals.dart';
 import 'package:meals_2/widgets/category_grid_item.dart';
+import 'package:meals_2/providers/categories_provider.dart';
 
-class CategorieScreen extends StatelessWidget {
+final selectedCategoryProvider = StateProvider<Category?>((ref) => null);
+
+class CategorieScreen extends ConsumerWidget {
   const CategorieScreen({super.key, required this.availableMeals});
 
   final List<Meal> availableMeals;
 
-  void _selectCategory(BuildContext context, Category category) {
-    final filteredMeals = availableMeals
-        .where((meal) => meal.categories.contains(category.id))
-        .toList();
-
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => MealsScreen(
-          title: category.title,
-          meals: filteredMeals,
-        ),
-      ),
-    ); // Navigator.push(context, route)
-  }
-
   @override
-  Widget build(BuildContext context) {
-    return GridView(
-      padding: const EdgeInsets.all(24),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categoriesAsyncValue = ref.watch(categoriesProvider);
+
+    return categoriesAsyncValue.when(
+      data: (categories) => GridView(
+        padding: const EdgeInsets.all(24),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        children: categories
+            .map((category) => CategoryGridItem(
+                  category: category,
+                  selectCategory: () =>
+                      selectCategory(context, ref, category, availableMeals),
+                ))
+            .toList(),
       ),
-      children: availableCategories
-          .map((category) => CategoryGridItem(
-                category: category,
-                selectCategory: () => _selectCategory(context, category),
-              ))
-          .toList(),
-      /* 
-        alternative to the above code:
-        for (final category in availableCategories)
-          CategoryGridItem(category: category),
-         */
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (err, stack) => Center(child: Text('Error: $err')),
     );
   }
 }
