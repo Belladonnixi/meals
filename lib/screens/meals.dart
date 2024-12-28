@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_2/models/meal.dart';
-import 'package:meals_2/screens/meal_details.dart';
+import 'package:meals_2/providers/meal_navigation_provider.dart';
 import 'package:meals_2/widgets/meal_item.dart';
 
 /// The screen that displays a list of meals.
-class MealsScreen extends StatelessWidget {
+class MealsScreen extends ConsumerWidget {
   const MealsScreen({
     super.key,
     this.title,
@@ -17,19 +18,10 @@ class MealsScreen extends StatelessWidget {
   /// The list of meals to display.
   final List<Meal> meals;
 
-  /// Navigates to the meal details screen when a meal is selected.
-  void _selectMeal(BuildContext context, Meal meal) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => MealDetailsScreen(
-          meal: meal,
-        ),
-      ),
-    );
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mealNavigationNotifier = ref.read(mealNavigationProvider);
+
     Widget content = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -58,7 +50,8 @@ class MealsScreen extends StatelessWidget {
         itemCount: meals.length,
         itemBuilder: (ctx, index) => MealItem(
           meal: meals[index],
-          onSelectMeal: (meal) => _selectMeal(context, meal),
+          onSelectMeal: (meal) =>
+              mealNavigationNotifier.selectMeal(context, meal),
         ),
       );
     }
