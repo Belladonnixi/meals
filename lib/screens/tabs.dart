@@ -8,16 +8,11 @@ import 'package:meals_2/screens/meals.dart';
 import 'package:meals_2/widgets/main_drawer.dart';
 
 /// The main screen that displays tabs for different sections of the app.
-class TabsScreen extends ConsumerStatefulWidget {
+class TabsScreen extends ConsumerWidget {
   const TabsScreen({super.key});
 
   @override
-  ConsumerState<TabsScreen> createState() => _TabsScreenState();
-}
-
-class _TabsScreenState extends ConsumerState<TabsScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final availableMeals = ref.watch(filteredMealProvider);
     final selectedPageIndex = ref.watch(selectedPageIndexProvider);
     final navigationNotifier = ref.read(navigationProvider);
