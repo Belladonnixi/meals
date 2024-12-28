@@ -7,7 +7,6 @@ import 'package:meals_2/screens/categories.dart';
 import 'package:meals_2/screens/meals.dart';
 import 'package:meals_2/widgets/main_drawer.dart';
 
-/// The main screen that displays tabs for different sections of the app.
 class TabsScreen extends ConsumerWidget {
   const TabsScreen({super.key});
 
