@@ -9,6 +9,7 @@ In the original no mockdatabase implementation existed also not existing was the
 widgets that didn't exist in the original:
 - fliter switch tile
 - drawer list tile
+- bottom nav bar
 
 lots of methods stayed in original in the widgets, that didn't felt right so I've corrected all of this.
 
