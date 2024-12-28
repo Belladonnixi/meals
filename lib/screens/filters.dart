@@ -1,108 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_2/providers/filters_provider.dart';
 import 'package:meals_2/widgets/filter_switch_tile.dart';
 
-/// Enum representing different filters for meals.
-enum Filter {
-  glutenFree,
-  lactoseFree,
-  vegetarian,
-  vegan,
-}
-
-/// A screen for managing filters for meals.
-class FiltersScreen extends StatefulWidget {
-  /// Constructs a [FiltersScreen] with the given [currentFilters].
-  const FiltersScreen({super.key, required this.currentFilters});
-
-  /// The current filters for meals.
-  final Map<Filter, bool> currentFilters;
+/// A screen that allows the user to set filters for meal preferences.
+class FiltersScreen extends ConsumerWidget {
+  const FiltersScreen({super.key});
 
   @override
-  State<FiltersScreen> createState() => _FiltersScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Retrieve the active filters from the filtersProvider
+    final activeFilters = ref.watch(filtersProvider);
 
-/// The state of the [FiltersScreen].
-class _FiltersScreenState extends State<FiltersScreen> {
-  bool _glutenFreeFilterSet = false;
-  bool _lactoseFreeFilterSet = false;
-  bool _vegetarianFilterSet = false;
-  bool _veganFilterSet = false;
-
-  /// Initializes the state of the Filters screen.
-  ///
-  /// This method is called when the widget is inserted into the tree and
-  /// creates the initial state of the widget. It sets the values of the
-  /// filter variables based on the current filters passed to the widget.
-  @override
-  void initState() {
-    super.initState();
-    _glutenFreeFilterSet = widget.currentFilters[Filter.glutenFree] ?? false;
-    _lactoseFreeFilterSet = widget.currentFilters[Filter.lactoseFree] ?? false;
-    _vegetarianFilterSet = widget.currentFilters[Filter.vegetarian] ?? false;
-    _veganFilterSet = widget.currentFilters[Filter.vegan] ?? false;
-  }
-
-  /// Handles the action when the back button is pressed and returns the selected filters.
-  Future<bool> onPopInvokedWithResult() async {
-    Navigator.of(context).pop({
-      Filter.glutenFree: _glutenFreeFilterSet,
-      Filter.lactoseFree: _lactoseFreeFilterSet,
-      Filter.vegetarian: _vegetarianFilterSet,
-      Filter.vegan: _veganFilterSet,
-    });
-    return true;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Filters'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => onPopInvokedWithResult(),
-        ),
       ),
       body: Column(
         children: [
           FilterSwitchTile(
             title: 'Gluten-Free',
             subtitle: 'Only include gluten-free meals',
-            value: _glutenFreeFilterSet,
+            value: activeFilters[Filter.glutenFree]!,
             onChanged: (isChecked) {
-              setState(() {
-                _glutenFreeFilterSet = isChecked;
-              });
+              // Update the filter value for gluten-free meals
+              ref
+                  .read(filtersProvider.notifier)
+                  .setFilter(Filter.glutenFree, isChecked);
             },
           ),
           FilterSwitchTile(
             title: 'Lactose-Free',
             subtitle: 'Only include lactose-free meals',
-            value: _lactoseFreeFilterSet,
+            value: activeFilters[Filter.lactoseFree]!,
             onChanged: (isChecked) {
-              setState(() {
-                _lactoseFreeFilterSet = isChecked;
-              });
+              // Update the filter value for lactose-free meals
+              ref
+                  .read(filtersProvider.notifier)
+                  .setFilter(Filter.lactoseFree, isChecked);
             },
           ),
           FilterSwitchTile(
             title: 'Vegetarian',
             subtitle: 'Only include vegetarian meals',
-            value: _vegetarianFilterSet,
+            value: activeFilters[Filter.vegetarian]!,
             onChanged: (isChecked) {
-              setState(() {
-                _vegetarianFilterSet = isChecked;
-              });
+              // Update the filter value for vegetarian meals
+              ref
+                  .read(filtersProvider.notifier)
+                  .setFilter(Filter.vegetarian, isChecked);
             },
           ),
           FilterSwitchTile(
             title: 'Vegan',
             subtitle: 'Only include vegan meals',
-            value: _veganFilterSet,
+            value: activeFilters[Filter.vegan]!,
             onChanged: (isChecked) {
-              setState(() {
-                _veganFilterSet = isChecked;
-              });
+              // Update the filter value for vegan meals
+              ref
+                  .read(filtersProvider.notifier)
+                  .setFilter(Filter.vegan, isChecked);
             },
           ),
         ],
