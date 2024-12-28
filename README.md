@@ -1,16 +1,11 @@
-# meals_2
+# Meals
 
-A new Flutter project.
+A in original project of an Udemy course to get riverpod praxis but I did change the data implementation and corrected the inconsistent use of providers.
+In the original no mockdatabase implementation existed also not existing was the following providers:
+- categories
+- meal navigation
+- navigation
 
-## Getting Started
+lots of methods stayed in original in the widgets, that didn't felt right so I've corrected all of this.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The actual state ofe the project isn't finalized it's the state before animations moving in.

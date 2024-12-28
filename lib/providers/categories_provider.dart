@@ -5,13 +5,20 @@ import 'package:meals_2/models/category.dart';
 import 'package:meals_2/models/meal.dart';
 import 'package:meals_2/screens/meals.dart';
 
+/// A provider that fetches a list of categories asynchronously.
 final categoriesProvider = FutureProvider<List<Category>>((ref) async {
   final dataRepository = MockDatabaseRepository();
   return await dataRepository.getCategories();
 });
 
+// A provider that holds the currently selected category.
 final selectedCategoryProvider = StateProvider<Category?>((ref) => null);
 
+// Selects a category and navigates to the meals screen.
+//
+// This function takes in the [BuildContext], [WidgetRef], [Category], and [availableMeals].
+// It filters the [availableMeals] based on the selected [category], updates the selected category state,
+// and navigates to the [MealsScreen] with the filtered meals.
 void selectCategory(BuildContext context, WidgetRef ref, Category category,
     List<Meal> availableMeals) {
   final filteredMeals = availableMeals
