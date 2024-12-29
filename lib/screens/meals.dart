@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_2/models/meal.dart';
-import 'package:meals_2/providers/meal_navigation_provider.dart';
+import 'package:meals_2/providers/navigation_notifier.dart';
 import 'package:meals_2/widgets/meal_item.dart';
 
 /// The screen that displays a list of meals.
