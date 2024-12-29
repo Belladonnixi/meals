@@ -3,10 +3,14 @@ import 'package:meals_2/models/category.dart';
 
 class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem(
-      {super.key, required this.category, required this.selectCategory});
+      {super.key,
+      required this.category,
+      required this.selectCategory,
+      required this.mealCount});
 
   final Category category;
   final void Function() selectCategory;
+  final int mealCount;
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +31,26 @@ class CategoryGridItem extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
         ),
-        child: Text(
-          category.title,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              category.title,
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+            ),
+            Spacer(),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                '$mealCount',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
               ),
+            ),
+          ],
         ),
       ),
     );

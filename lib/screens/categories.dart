@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_2/models/category.dart';
 import 'package:meals_2/models/meal.dart';
+import 'package:meals_2/providers/meals_provider.dart';
 import 'package:meals_2/widgets/category_grid_item.dart';
 import 'package:meals_2/providers/categories_provider.dart';
 
@@ -15,6 +16,7 @@ class CategorieScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoriesAsyncValue = ref.watch(categoriesProvider);
+    final mealsCount = ref.watch(mealCountProvider);
 
     return categoriesAsyncValue.when(
       data: (categories) => GridView(
@@ -30,6 +32,7 @@ class CategorieScreen extends ConsumerWidget {
                   category: category,
                   selectCategory: () =>
                       selectCategory(context, ref, category, availableMeals),
+                  mealCount: mealsCount[category.id] ?? 0,
                 ))
             .toList(),
       ),
