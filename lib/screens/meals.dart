@@ -12,10 +12,7 @@ class MealsScreen extends ConsumerWidget {
     required this.meals,
   });
 
-  /// The title of the screen.
   final String? title;
-
-  /// The list of meals to display.
   final List<Meal> meals;
 
   @override
