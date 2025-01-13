@@ -24,7 +24,7 @@ class MockDatabaseRepository implements DataRepository {
   }
 
   final List<Meal> meals = [
-    Meal(
+    const Meal(
       id: 'm1',
       categories: ['c1', 'c2'],
       title: 'Spaghetti with Tomato Sauce',
@@ -55,7 +55,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: true,
       isLactoseFree: true,
     ),
-    Meal(
+    const Meal(
       id: 'm2',
       categories: ['c2'],
       title: 'Toast Hawaii',
@@ -81,7 +81,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: false,
       isLactoseFree: false,
     ),
-    Meal(
+    const Meal(
       id: 'm3',
       categories: ['c2', 'c3'],
       title: 'Classic Hamburger',
@@ -110,7 +110,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: false,
       isLactoseFree: true,
     ),
-    Meal(
+    const Meal(
       id: 'm4',
       categories: ['c4'],
       title: 'Wiener Schnitzel',
@@ -143,7 +143,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: false,
       isLactoseFree: false,
     ),
-    Meal(
+    const Meal(
       id: 'm5',
       categories: [
         'c2'
@@ -179,7 +179,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: true,
       isLactoseFree: true,
     ),
-    Meal(
+    const Meal(
       id: 'm6',
       categories: ['c6', 'c10'],
       title: 'Delicious Orange Mousse',
@@ -212,7 +212,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: true,
       isLactoseFree: false,
     ),
-    Meal(
+    const Meal(
       id: 'm7',
       categories: ['c7'],
       title: 'Pancakes',
@@ -241,7 +241,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: true,
       isLactoseFree: false,
     ),
-    Meal(
+    const Meal(
       id: 'm8',
       categories: ['c8'],
       title: 'Creamy Indian Chicken Curry',
@@ -272,7 +272,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: false,
       isLactoseFree: true,
     ),
-    Meal(
+    const Meal(
       id: 'm9',
       categories: ['c9'],
       title: 'Chocolate Souffle',
@@ -319,7 +319,7 @@ class MockDatabaseRepository implements DataRepository {
       isVegetarian: true,
       isLactoseFree: false,
     ),
-    Meal(
+    const Meal(
       id: 'm10',
       categories: ['c2', 'c5', 'c10'],
       title: 'Asparagus Salad with Cherry Tomatoes',
@@ -352,52 +352,52 @@ class MockDatabaseRepository implements DataRepository {
   ];
 
   final List<Category> categories = [
-    Category(
+    const Category(
       id: 'c1',
       title: 'Italian',
       color: Colors.purple,
     ),
-    Category(
+    const Category(
       id: 'c2',
       title: 'Quick & Easy',
       color: Colors.red,
     ),
-    Category(
+    const Category(
       id: 'c3',
       title: 'Hamburgers',
       color: Colors.orange,
     ),
-    Category(
+    const Category(
       id: 'c4',
       title: 'German',
       color: Colors.amber,
     ),
-    Category(
+    const Category(
       id: 'c5',
       title: 'Light & Lovely',
       color: Colors.blue,
     ),
-    Category(
+    const Category(
       id: 'c6',
       title: 'Exotic',
       color: Colors.green,
     ),
-    Category(
+    const Category(
       id: 'c7',
       title: 'Breakfast',
       color: Colors.lightBlue,
     ),
-    Category(
+    const Category(
       id: 'c8',
       title: 'Asian',
       color: Colors.lightGreen,
     ),
-    Category(
+    const Category(
       id: 'c9',
       title: 'French',
       color: Colors.pink,
     ),
-    Category(
+    const Category(
       id: 'c10',
       title: 'Summer',
       color: Colors.teal,

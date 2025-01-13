@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals_2/providers/filters_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:meals_2/models/meal.dart';
 import 'package:meals_2/screens/filters.dart';
-import 'package:meals_2/providers/filters_provider.dart';
 import 'package:meals_2/screens/meal_details.dart';
 
-/// Provider for managing the selected page index state.
-final selectedPageIndexProvider = StateProvider<int>((ref) => 0);
+part 'navigation_notifier.g.dart';
 
-/// Provider for the NavigationNotifier.
-final navigationProvider = Provider<NavigationNotifier>((ref) {
-  return NavigationNotifier(ref);
-});
+/// Notifier for managing the selected page index state.
+@riverpod
+class SelectedPageIndexNotifier extends _$SelectedPageIndexNotifier {
+  @override
+  int build() {
+    // Default page index is 0
+    return 0;
+  }
 
-/// Notifier class for handling navigation logic.
-class NavigationNotifier {
-  /// A reference to an object.
-  ///
-  /// This is used in the `NavigationNotifier` class to store a reference to an object.
-  /// It is typically used to keep track of the current navigation state in a Flutter application.
-  final Ref ref;
-
-  NavigationNotifier(this.ref);
-
-  /// Selects the page by updating the selected page index state.
+  /// Updates the selected page index state.
   void selectPage(int index) {
-    ref.read(selectedPageIndexProvider.notifier).state = index;
+    state = index;
+  }
+}
+
+/// Notifier for managing navigation logic.
+@riverpod
+class NavigationNotifier extends _$NavigationNotifier {
+  @override
+  void build() {
+    // No initial state needed for this notifier
   }
 
   /// Sets the screen based on the identifier.
@@ -40,13 +42,20 @@ class NavigationNotifier {
       );
     }
   }
+
+  void selectPage(int index) {
+    ref.read(selectedPageIndexNotifierProvider.notifier).selectPage(index);
+  }
 }
 
-final mealNavigationProvider = Provider((ref) {
-  return MealNavigationNotifier();
-});
+/// Notifier for meal-related navigation logic.
+@riverpod
+class MealNavigationNotifier extends _$MealNavigationNotifier {
+  @override
+  void build() {
+    // No initial state needed for this notifier
+  }
 
-class MealNavigationNotifier {
   void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(

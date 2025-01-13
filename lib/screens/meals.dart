@@ -17,7 +17,8 @@ class MealsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mealNavigationNotifier = ref.read(mealNavigationProvider);
+    final mealNavigationNotifier =
+        ref.read(mealNavigationNotifierProvider.notifier);
 
     Widget content = Center(
       child: Column(

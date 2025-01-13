@@ -13,8 +13,8 @@ class TabsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedPageIndex = ref.watch(selectedPageIndexProvider);
-    final navigationNotifier = ref.read(navigationProvider);
+    final selectedPageIndex = ref.watch(selectedPageIndexNotifierProvider);
+    final navigationNotifier = ref.read(navigationNotifierProvider.notifier);
 
     Widget activePage;
     var activePageTitle = 'Categories';
